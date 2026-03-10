@@ -6,91 +6,74 @@
     <title>IKIGAI 生存意义生成器</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .circle { transition: all 0.3s ease; opacity: 0.6; mix-blend-mode: multiply; }
-        .circle:hover { opacity: 0.8; transform: scale(1.02); }
-        .label-input { background: rgba(255,255,255,0.8); border: 1px solid #ddd; border-radius: 4px; padding: 4px; width: 100%; font-size: 12px; }
+        .circle { transition: all 0.3s ease; opacity: 0.8; mix-blend-mode: multiply; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; text-align: center; }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen p-8">
     <div class="max-w-4xl mx-auto">
         <header class="text-center mb-10">
             <h1 class="text-3xl font-bold text-gray-800">IKIGAI 交互式生成器</h1>
-            <p class="text-gray-600 mt-2">探索你的激情、使命、职业与天职的交汇点</p>
+            <p class="text-gray-600 mt-2">输入你的灵感，实时探索你的生存意义</p>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div class="space-y-4">
                 <div class="p-4 bg-red-50 border-l-4 border-red-400">
-                    <label class="block font-bold text-red-700">你热爱的 (Love)</label>
-                    <input type="text" id="in-love" class="w-full mt-1 p-2 border rounded" placeholder="如：绘画、编程、帮助他人..." oninput="updateDiagram()">
+                    <label class="block font-bold text-red-700 text-sm">你热爱的 (Love)</label>
+                    <input type="text" id="in-love" class="w-full mt-1 p-2 border rounded" placeholder="如：绘画、编程...">
                 </div>
                 <div class="p-4 bg-yellow-50 border-l-4 border-yellow-400">
-                    <label class="block font-bold text-yellow-700">你擅长的 (Great at)</label>
-                    <input type="text" id="in-good" class="w-full mt-1 p-2 border rounded" placeholder="如：逻辑分析、演讲、烹饪..." oninput="updateDiagram()">
+                    <label class="block font-bold text-yellow-700 text-sm">你擅长的 (Great at)</label>
+                    <input type="text" id="in-good" class="w-full mt-1 p-2 border rounded" placeholder="如：逻辑分析、烹饪...">
                 </div>
                 <div class="p-4 bg-blue-50 border-l-4 border-blue-400">
-                    <label class="block font-bold text-blue-700">世界需要的 (World Needs)</label>
-                    <input type="text" id="in-need" class="w-full mt-1 p-2 border rounded" placeholder="如：环境保护、心理健康教育..." oninput="updateDiagram()">
+                    <label class="block font-bold text-blue-700 text-sm">世界需要的 (World Needs)</label>
+                    <input type="text" id="in-need" class="w-full mt-1 p-2 border rounded" placeholder="如：环境保护...">
                 </div>
                 <div class="p-4 bg-green-50 border-l-4 border-green-400">
-                    <label class="block font-bold text-green-700">能获得报酬的 (Paid for)</label>
-                    <input type="text" id="in-paid" class="w-full mt-1 p-2 border rounded" placeholder="如：软件开发、咨询、写作..." oninput="updateDiagram()">
+                    <label class="block font-bold text-green-700 text-sm">能获得报酬的 (Paid for)</label>
+                    <input type="text" id="in-paid" class="w-full mt-1 p-2 border rounded" placeholder="如：软件开发、咨询...">
                 </div>
-                <button onclick="window.print()" class="w-full bg-gray-800 text-white py-3 rounded-lg font-bold hover:bg-black transition">保存为 PDF / 打印</button>
             </div>
 
-                  <div class="circle absolute top-20 left-0 w-40 h-40 bg-yellow-400 rounded-full flex flex-col items-center justify-center p-4 text-center">
-                        <span class="font-bold text-xs mb-1">擅长</span>
-                        <div id="out-good" class="text-[10px] leading-tight"></div>
-                    </div>
-                    <div class="circle absolute top-20 right-0 w-40 h-40 bg-blue-400 rounded-full flex flex-col items-center justify-center p-4 text-center">
-                        <span class="font-bold text-xs mb-1">需求</span>
-                        <div id="out-need" class="text-[10px] leading-tight"></div>
-                    </div>
-                    <div class="circle absolute bottom-0 left-20 w-40 h-40 bg-green-400 rounded-full flex flex-col items-center justify-center p-4 text-center">
-                        <span class="font-bold text-xs mb-1">报酬</span>
-                        <div id="out-paid" class="text-[10px] leading-tight"></div>
-                    </div>
-                    <div class="absolute inset-0 m-auto w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-gray-800 z-10">
             <div class="relative w-full aspect-square flex items-center justify-center">
-                <div class="relative w-full flex flex-col items-center">
-    <div class="relative w-80 h-80">
-        <div class="circle absolute top-0 left-20 w-40 h-40 bg-red-400 rounded-full"></div>
-        <div class="circle absolute top-20 left-0 w-40 h-40 bg-yellow-400 rounded-full"></div>
-        <div class="circle absolute top-20 right-0 w-40 h-40 bg-blue-400 rounded-full"></div>
-        <div class="circle absolute bottom-0 left-20 w-40 h-40 bg-green-400 rounded-full"></div>
-        
-        <div class="absolute inset-0 m-auto w-32 h-32 bg-white rounded-full shadow-xl border-2 border-gray-800 z-10 flex flex-col items-center justify-center p-2 text-center overflow-hidden">
-            <span class="text-[10px] font-bold text-gray-400 mb-1">你的 IKIGAI</span>
-            <div id="ikigai-result" class="text-[9px] leading-tight text-gray-800 italic">在此处查看你的生存意义交集...</div>
+                <div class="relative w-80 h-80">
+                    <div class="circle absolute top-0 left-20 w-40 h-40 bg-red-400 rounded-full text-white"><span class="font-bold text-xs">热爱</span><div id="out-love" class="text-[10px] mt-1 italic"></div></div>
+                    <div class="circle absolute top-20 left-0 w-40 h-40 bg-yellow-400 rounded-full text-white"><span class="font-bold text-xs">擅长</span><div id="out-good" class="text-[10px] mt-1 italic"></div></div>
+                    <div class="circle absolute top-20 right-0 w-40 h-40 bg-blue-400 rounded-full text-white"><span class="font-bold text-xs">需求</span><div id="out-need" class="text-[10px] mt-1 italic"></div></div>
+                    <div class="circle absolute bottom-0 left-20 w-40 h-40 bg-green-400 rounded-full text-white"><span class="font-bold text-xs">报酬</span><div id="out-paid" class="text-[10px] mt-1 italic"></div></div>
+                    
+                    <div class="absolute inset-0 m-auto w-32 h-32 bg-white rounded-full shadow-2xl border-2 border-gray-800 z-10 flex flex-col items-center justify-center p-3 text-center">
+                        <span class="text-[9px] font-bold text-gray-400">IKIGAI 意义</span>
+                        <div id="ikigai-result" class="text-[9px] leading-tight text-gray-800">开始输入以生成意义...</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-
-<script>
-    function updateDiagram() {
-        // 1. 获取输入框的值
-        const love = document.getElementById('in-love').value;
-        const good = document.getElementById('in-good').value;
-        const need = document.getElementById('in-need').value;
-        const paid = document.getElementById('in-paid').value;
-
-        // 2. 同步文字到四个圆圈内
-        document.getElementById('out-love').innerText = love;
-        document.getElementById('out-good').innerText = good;
-        document.getElementById('out-need').innerText = need;
-        document.getElementById('out-paid').innerText = paid;
-
-        // 3. 生成中间的交汇点意义
-        const resultDiv = document.getElementById('ikigai-result');
-        if (love && good && need && paid) {
-            resultDiv.innerText = `你的意义：利用${good}能力，通过${love}去满足${need}，最终获得${paid}。`;
+    <script>
+        function updateDiagram() {
+            const love = document.getElementById('in-love').value;
+            const good = document.getElementById('in-good').value;
+            const need = document.getElementById('in-need').value;
+            const paid = document.getElementById('in-paid').value;
+            
+            // 同步文字到圆圈
+            document.getElementById('out-love').innerText = love;
+            document.getElementById('out-good').innerText = good;
+            document.getElementById('out-need').innerText = need;
+            document.getElementById('out-paid').innerText = paid;
+            
+            // 生成中心总结
+            const result = document.getElementById('ikigai-result');
+            if (love && good && need && paid) {
+                result.innerText = `因为你热爱${love}且擅长${good}，同时世界需要${need}且能通过${paid}获利，你的 IKIGAI 是：成为一名${good}先驱。`;
+            } else {
+                result.innerText = "请填满四个维度，AI 将为你揭示意义...";
+            }
         }
-    }
-
-    // 绑定所有输入框的监听
-    document.querySelectorAll('input').forEach(input => {
-        input.addEventListener('input', updateDiagram);
-    });
-</script>
+        document.querySelectorAll('input').forEach(i => i.addEventListener('input', updateDiagram));
+    </script>
+</body>
+</html>
