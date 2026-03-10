@@ -40,38 +40,40 @@
             </div>
 
             <div class="relative w-full aspect-square flex items-center justify-center">
-                <div class="relative w-80 h-80">
-                    <div class="circle absolute top-0 left-20 w-40 h-40 bg-red-400 rounded-full flex flex-col items-center justify-center p-4 text-center">
-                        <span class="font-bold text-xs mb-1">热爱</span>
-                        <div id="out-love" class="text-[10px] leading-tight"></div>
-                    </div>
-                    <div class="circle absolute top-20 left-0 w-40 h-40 bg-yellow-400 rounded-full flex flex-col items-center justify-center p-4 text-center">
-                        <span class="font-bold text-xs mb-1">擅长</span>
-                        <div id="out-good" class="text-[10px] leading-tight"></div>
-                    </div>
-                    <div class="circle absolute top-20 right-0 w-40 h-40 bg-blue-400 rounded-full flex flex-col items-center justify-center p-4 text-center">
-                        <span class="font-bold text-xs mb-1">需求</span>
-                        <div id="out-need" class="text-[10px] leading-tight"></div>
-                    </div>
-                    <div class="circle absolute bottom-0 left-20 w-40 h-40 bg-green-400 rounded-full flex flex-col items-center justify-center p-4 text-center">
-                        <span class="font-bold text-xs mb-1">报酬</span>
-                        <div id="out-paid" class="text-[10px] leading-tight"></div>
-                    </div>
-                    <div class="absolute inset-0 m-auto w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-gray-800 z-10">
-                        <span class="text-[8px] font-black">IKIGAI</span>
-                    </div>
-                </div>
-            </div>
+                <div class="relative w-full flex flex-col items-center">
+    <div class="relative w-80 h-80">
+        <div class="circle absolute top-0 left-20 w-40 h-40 bg-red-400 rounded-full"></div>
+        <div class="circle absolute top-20 left-0 w-40 h-40 bg-yellow-400 rounded-full"></div>
+        <div class="circle absolute top-20 right-0 w-40 h-40 bg-blue-400 rounded-full"></div>
+        <div class="circle absolute bottom-0 left-20 w-40 h-40 bg-green-400 rounded-full"></div>
+        
+        <div class="absolute inset-0 m-auto w-32 h-32 bg-white rounded-full shadow-xl border-2 border-gray-800 z-10 flex flex-col items-center justify-center p-2 text-center overflow-hidden">
+            <span class="text-[10px] font-bold text-gray-400 mb-1">你的 IKIGAI</span>
+            <div id="ikigai-result" class="text-[9px] leading-tight text-gray-800 italic">在此处查看你的生存意义交集...</div>
         </div>
     </div>
+</div>
+
 
     <script>
-        function updateDiagram() {
-            document.getElementById('out-love').innerText = document.getElementById('in-love').value;
-            document.getElementById('out-good').innerText = document.getElementById('in-good').value;
-            document.getElementById('out-need').innerText = document.getElementById('in-need').value;
-            document.getElementById('out-paid').innerText = document.getElementById('in-paid').value;
+    function updateDiagram() {
+        const love = document.getElementById('in-love').value;
+        const good = document.getElementById('in-good').value;
+        const need = document.getElementById('in-need').value;
+        const paid = document.getElementById('in-paid').value;
+        
+        const resultDiv = document.getElementById('ikigai-result');
+        
+        // 简单的逻辑生成：当四个都填满时，显示意义
+        if (love && good && need && paid) {
+            resultDiv.innerHTML = `因为你热爱<strong>${love}</strong>且擅长<strong>${good}</strong>，同时世界需要<strong>${need}</strong>且能从中获得<strong>${paid}</strong>，你的生命意义在于：<strong>成为一名${good}领域的先驱，通过${love}解决${need}问题，从而实现可持续的个人价值。</strong>`;
+        } else {
+            resultDiv.innerText = "请填满以上四个维度，AI 将为你揭示你的 IKIGAI...";
         }
-    </script>
-</body>
-</html>
+    }
+
+    // 监听输入
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', updateDiagram);
+    });
+</script>
